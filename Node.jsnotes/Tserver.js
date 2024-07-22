@@ -9,9 +9,16 @@ require('dotenv').config();
 const bodyparser = require("body-parser");
 app.use(bodyparser.json()); // req.body
 
+//  middleware function
+const logRequest=(req, res, next)=>{
+  console.log(`${new Date().toLocaleString()} Request Madde to : ${req.originalUrl}`);
+  next();
+}
+
 const PORT=process.env.PORT || 3000 ;
 
-app.get("/", (req, res) => {
+app.use(logRequest); // applying this to all endpoints
+app.get('/', (req, res) => {
   res.send("Welcome to the main page of the hotel ... love to welcome you...N");
 });
 

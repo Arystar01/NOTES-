@@ -1,7 +1,16 @@
 const express= require('express');
 const routes= express.Router();
 const menu=require('../Models/Menu');
-
+routes.get('/', async (req, res) => {
+    try {
+      const data = await menu.find();
+      console.log("Data fetched succesfully.");
+      res.status(200).json(data);
+    } catch (err) {
+      console.log("error occuers while saving data in the database ", error);
+      res.status(404).json({ error: "internal server error" });
+    }
+  });
 routes.post("/", async (req,res)=>{
     try{
        const data= req.body;
