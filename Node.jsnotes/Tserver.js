@@ -4,10 +4,9 @@ const db = require("./db");
 const person = require("./Models/person");
 const menu= require("./Models/Menu");
 require('dotenv').config();
+const passport= require('./Auth')
+const bodyparser = require("body-parser"); // applying bodyparser
 
-// applying bodyparser
-const bodyparser = require("body-parser");
-app.use(bodyparser.json()); // req.body
 
 //  middleware function
 const logRequest=(req, res, next)=>{
@@ -17,10 +16,21 @@ const logRequest=(req, res, next)=>{
 
 const PORT=process.env.PORT || 3000 ;
 
+
+app.use(bodyparser.json()); // req.body
+
+app.use(passport.initialize());
+
 app.use(logRequest); // applying this to all endpoints
-app.get('/', (req, res) => {
+
+
+
+
+app.get('/', passport.authenticate('local', {session:false}),   (req, res) => {
   res.send("Welcome to the main page of the hotel ... love to welcome you...N");
 });
+
+
 
 //  creating a post method , it will send the data from the client to the server
 const personRoutes= require('./Routes/personRoutes');
