@@ -11,7 +11,7 @@ routes.post("/", async (req,res)=>{
     console.log("Data fetched succesfully.");
     res.status(200).json(data);
     }
-    catch(err){
+    catch(error){
         console.log("error occuers while saving data in the database ", error);
     res.status(404).json({ error: "internal server error" });
     }

@@ -3,9 +3,13 @@ const app = express();
 const db = require("./db");
 const person = require("./Models/person");
 const menu= require("./Models/Menu");
+require('dotenv').config();
+
 // applying bodyparser
 const bodyparser = require("body-parser");
 app.use(bodyparser.json()); // req.body
+
+const PORT=process.env.PORT || 3000 ;
 
 app.get("/", (req, res) => {
   res.send("Welcome to the main page of the hotel ... love to welcome you...N");
@@ -19,4 +23,4 @@ const meunItmeRoutes=require('./Routes/menuItemRoutes');
 app.use('/menu',meunItmeRoutes);
 
 
-app.listen(3000);
+app.listen(PORT);
